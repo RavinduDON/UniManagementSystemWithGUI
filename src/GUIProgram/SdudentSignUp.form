@@ -206,9 +206,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="SENG1111_Introduction_to_Programming"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox1ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBox2">
       <Properties>
@@ -217,9 +214,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="SENG1113_Data_Structures_and_Algorithms"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox2ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBox3">
       <Properties>
@@ -228,9 +222,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="SENG1112_Fndamantales_of_Engineering"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox3ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
