@@ -1,4 +1,8 @@
+package GUIProgram;
 
+
+import Controller.LecturerController;
+import Entity.Lecturer;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,20 +19,18 @@ import javax.swing.JOptionPane;
  *
  * @author User
  */
-public class StudentSignIn extends javax.swing.JFrame {
+public class LecturerSignIn extends javax.swing.JFrame {
 
-    
     private String userName;
     private String password;
-    StudentController stdController=new StudentController();
-    Student student=new Student();
-    public static StudentSignIn stdSignIn=new StudentSignIn();
+    LecturerController lecController=new LecturerController();
+    Lecturer lecturer=new Lecturer();
+    public static LecturerSignIn lecSignIn=new LecturerSignIn();
+    private HomePage homePage=new HomePage();
     /**
      * Creates new form MainWindow
      */
-    
-
-    public StudentSignIn() {
+    public LecturerSignIn() {
         initComponents();
     }
 
@@ -47,7 +49,7 @@ public class StudentSignIn extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtUserName = new javax.swing.JTextField();
         btnSignIn = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,7 +58,7 @@ public class StudentSignIn extends javax.swing.JFrame {
         jLabel1.setText("University Management System");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Sign In as Student");
+        jLabel2.setText("Sign In as a Lecturer");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel3.setText("User Name:");
@@ -71,7 +73,12 @@ public class StudentSignIn extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Cancel");
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,21 +93,24 @@ public class StudentSignIn extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(152, 152, 152)
+                        .addGap(154, 154, 154)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-                            .addComponent(txtPassword))))
-                .addContainerGap(195, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(193, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnSignIn)
-                .addGap(52, 52, 52)
-                .addComponent(jButton2)
-                .addGap(92, 92, 92))
+                .addGap(71, 71, 71)
+                .addComponent(btnCancel)
+                .addGap(118, 118, 118))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,7 +119,7 @@ public class StudentSignIn extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addGap(96, 96, 96)
+                .addGap(98, 98, 98)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -117,11 +127,11 @@ public class StudentSignIn extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSignIn)
-                    .addComponent(jButton2))
-                .addContainerGap(124, Short.MAX_VALUE))
+                    .addComponent(btnCancel))
+                .addGap(92, 92, 92))
         );
 
         pack();
@@ -134,25 +144,32 @@ public class StudentSignIn extends javax.swing.JFrame {
             JFrame frame=new JFrame();
             userName=txtUserName.getText();
             password=txtPassword.getText();
-            student=stdController.stdSignIn(userName, password);
-            if(student!=null){
-                StudentProfile stdProfile=new StudentProfile(student);
-                stdProfile.setVisible(true);
+            lecturer=lecController.lecSignIn(userName, password);
+            if(lecturer!=null){
+                LecturereUserProfie lecProfie=new LecturereUserProfie(lecturer);
+                lecProfie.setVisible(true);
                 this.setVisible(false);
                 this.dispose();
-//                stdSignIn.setVisible(false);
-//                stdSignIn.dispose();
-          
-            }else{
-                JOptionPane.showMessageDialog(frame, "Can not find student");
+//                lecSignIn.setVisible(false);
+//                lecSignIn.dispose();
             }
-            
+            else{
+                JOptionPane.showMessageDialog(frame, "Can not find lecturer");
+            }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(StudentSignIn.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LecturerSignIn.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(StudentSignIn.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LecturerSignIn.class.getName()).log(Level.SEVERE, null, ex);
         }
+             
     }//GEN-LAST:event_btnSignInActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+       homePage.setVisible(true);
+       this.setVisible(false);
+       this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,14 +202,14 @@ public class StudentSignIn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                stdSignIn.setVisible(true);
+                lecSignIn.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSignIn;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

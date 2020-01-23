@@ -1,4 +1,8 @@
+package GUIProgram;
 
+
+import Controller.StudentController;
+import Entity.Student;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,17 +19,20 @@ import javax.swing.JOptionPane;
  *
  * @author User
  */
-public class LecturerSignIn extends javax.swing.JFrame {
+public class StudentSignIn extends javax.swing.JFrame {
 
+    
     private String userName;
     private String password;
-    LecturerController lecController=new LecturerController();
-    Lecturer lecturer=new Lecturer();
-    public static LecturerSignIn lecSignIn=new LecturerSignIn();
+    StudentController stdController=new StudentController();
+    Student student=new Student();
+    public static StudentSignIn stdSignIn=new StudentSignIn();
     /**
      * Creates new form MainWindow
      */
-    public LecturerSignIn() {
+    
+
+    public StudentSignIn() {
         initComponents();
     }
 
@@ -53,7 +60,7 @@ public class LecturerSignIn extends javax.swing.JFrame {
         jLabel1.setText("University Management System");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Sign In as a Lecturer");
+        jLabel2.setText("Sign In as Student");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel3.setText("User Name:");
@@ -83,24 +90,21 @@ public class LecturerSignIn extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
+                        .addGap(152, 152, 152)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(193, Short.MAX_VALUE))
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                            .addComponent(txtPassword))))
+                .addContainerGap(195, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnSignIn)
-                .addGap(71, 71, 71)
+                .addGap(52, 52, 52)
                 .addComponent(jButton2)
-                .addGap(118, 118, 118))
+                .addGap(92, 92, 92))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,7 +113,7 @@ public class LecturerSignIn extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addGap(98, 98, 98)
+                .addGap(96, 96, 96)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -117,11 +121,11 @@ public class LecturerSignIn extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSignIn)
                     .addComponent(jButton2))
-                .addGap(92, 92, 92))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
 
         pack();
@@ -134,24 +138,24 @@ public class LecturerSignIn extends javax.swing.JFrame {
             JFrame frame=new JFrame();
             userName=txtUserName.getText();
             password=txtPassword.getText();
-            lecturer=lecController.lecSignIn(userName, password);
-            if(lecturer!=null){
-                LecturereUserProfie lecProfie=new LecturereUserProfie(lecturer);
-                lecProfie.setVisible(true);
+            student=stdController.stdSignIn(userName, password);
+            if(student!=null){
+                StudentProfile stdProfile=new StudentProfile(student);
+                stdProfile.setVisible(true);
                 this.setVisible(false);
                 this.dispose();
-//                lecSignIn.setVisible(false);
-//                lecSignIn.dispose();
+//                stdSignIn.setVisible(false);
+//                stdSignIn.dispose();
+          
+            }else{
+                JOptionPane.showMessageDialog(frame, "Can not find student");
             }
-            else{
-                JOptionPane.showMessageDialog(frame, "Can not find lecturer");
-            }
+            
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LecturerSignIn.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudentSignIn.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(LecturerSignIn.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudentSignIn.class.getName()).log(Level.SEVERE, null, ex);
         }
-             
     }//GEN-LAST:event_btnSignInActionPerformed
 
     /**
@@ -185,7 +189,7 @@ public class LecturerSignIn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                lecSignIn.setVisible(true);
+                stdSignIn.setVisible(true);
             }
         });
     }

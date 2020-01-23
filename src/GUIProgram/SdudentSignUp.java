@@ -1,3 +1,5 @@
+package GUIProgram;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,6 +12,7 @@
  */
 public class SdudentSignUp extends javax.swing.JFrame {
 
+    private HomePage homePage=new HomePage();
     /**
      * Creates new form MainWindow
      */
@@ -42,7 +45,7 @@ public class SdudentSignUp extends javax.swing.JFrame {
         jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
 
@@ -101,7 +104,12 @@ public class SdudentSignUp extends javax.swing.JFrame {
 
         jButton1.setText("Sign Up");
 
-        jButton2.setText("Cancel");
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel2.setText("User ID");
@@ -147,7 +155,7 @@ public class SdudentSignUp extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(58, 58, 58)
-                .addComponent(jButton2)
+                .addComponent(btnCancel)
                 .addGap(100, 100, 100))
         );
         layout.setVerticalGroup(
@@ -190,7 +198,7 @@ public class SdudentSignUp extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnCancel))
                 .addContainerGap(108, Short.MAX_VALUE))
         );
 
@@ -213,6 +221,13 @@ public class SdudentSignUp extends javax.swing.JFrame {
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        homePage.setVisible(true);
+       this.setVisible(false);
+       this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,8 +266,8 @@ public class SdudentSignUp extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;

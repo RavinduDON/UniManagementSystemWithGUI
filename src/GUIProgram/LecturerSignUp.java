@@ -1,4 +1,10 @@
+package GUIProgram;
 
+
+import Controller.LecturerController;
+import Entity.Subject;
+import Entity.Lecturer;
+import Entity.modules;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -16,22 +22,24 @@ import javax.swing.JOptionPane;
  *
  * @author User
  */
-public class StudentSignUp extends javax.swing.JFrame {
+public class LecturerSignUp extends javax.swing.JFrame {
 
     private int id;
-    private String stdName;
-    private int stdAge;
+    private String lecName;
+    private int lecAge;
     private String userName;
     private String passowrd;
-    private Student student=new Student();
+    private Lecturer lecturer=new Lecturer();
     private ArrayList<Subject> subjectList=new ArrayList<>();
-    private StudentController stdController=new StudentController();
-    public static StudentSignUp stdSignUp=new StudentSignUp();
-           
+    private LecturerController lecController=new LecturerController();
+    public static LecturerSignUp lecSignUp=new LecturerSignUp();
+    private HomePage homePage=new HomePage();
+        
     /**
      * Creates new form MainWindow
      */
-    public StudentSignUp() {
+    ArrayList<Subject> sbList=new ArrayList<>();
+    public LecturerSignUp() {
         initComponents();
     }
 
@@ -50,17 +58,17 @@ public class StudentSignUp extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtUserName = new javax.swing.JTextField();
-        txtPAssword = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
         txtRePassword = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         txtAge = new javax.swing.JTextField();
-        checksub1 = new javax.swing.JCheckBox();
+        checkSub1 = new javax.swing.JCheckBox();
         checkSub3 = new javax.swing.JCheckBox();
         checkSub2 = new javax.swing.JCheckBox();
         btnSignUp = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtUserId = new javax.swing.JTextField();
 
@@ -70,7 +78,7 @@ public class StudentSignUp extends javax.swing.JFrame {
         jLabel1.setText("University Management System");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("Sign Up as Student");
+        jLabel5.setText("Sign Up as Lecturer");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel6.setText("User Name");
@@ -87,8 +95,8 @@ public class StudentSignUp extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jLabel10.setText("Age");
 
-        checksub1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        checksub1.setText("SENG1111_Introduction_to_Programming");
+        checkSub1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        checkSub1.setText("SENG1111_Introduction_to_Programming");
 
         checkSub3.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         checkSub3.setText("SENG1113_Data_Structures_and_Algorithms");
@@ -103,7 +111,12 @@ public class StudentSignUp extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Cancel");
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("User Id");
@@ -127,7 +140,7 @@ public class StudentSignUp extends javax.swing.JFrame {
                                         .addComponent(jLabel10)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
                                         .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(checksub1)
+                                    .addComponent(checkSub1)
                                     .addComponent(checkSub3)
                                     .addComponent(checkSub2))
                                 .addGroup(layout.createSequentialGroup()
@@ -141,7 +154,7 @@ public class StudentSignUp extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
                                         .addComponent(txtRePassword)
-                                        .addComponent(txtPAssword)
+                                        .addComponent(txtPassword)
                                         .addComponent(txtUserName)
                                         .addComponent(txtUserId)))))))
                 .addContainerGap(132, Short.MAX_VALUE))
@@ -149,7 +162,7 @@ public class StudentSignUp extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnSignUp)
                 .addGap(58, 58, 58)
-                .addComponent(jButton2)
+                .addComponent(btnCancel)
                 .addGap(100, 100, 100))
         );
         layout.setVerticalGroup(
@@ -159,7 +172,7 @@ public class StudentSignUp extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addGap(29, 29, 29)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -170,7 +183,7 @@ public class StudentSignUp extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtPAssword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -183,8 +196,8 @@ public class StudentSignUp extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addComponent(checksub1)
+                .addGap(28, 28, 28)
+                .addComponent(checkSub1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(checkSub2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -192,8 +205,8 @@ public class StudentSignUp extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSignUp)
-                    .addComponent(jButton2))
-                .addContainerGap(106, Short.MAX_VALUE))
+                    .addComponent(btnCancel))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         pack();
@@ -206,15 +219,14 @@ public class StudentSignUp extends javax.swing.JFrame {
             JFrame frame=new JFrame();
             id=Integer.parseInt(txtUserId.getText());
             userName=txtUserName.getText();
-            stdName=txtName.getText();
-            stdAge=Integer.parseInt(txtAge.getText());
-            passowrd=txtPAssword.getText();
-            student=stdController.stdSignIn(userName, passowrd);
-            if(student!=null){
-                JOptionPane.showMessageDialog(frame, "UserName and Password Already Taken Try another user..");
-            
+            lecName=txtName.getText();
+            lecAge=Integer.parseInt(txtAge.getText());
+            passowrd=txtPassword.getText();
+            lecturer=lecController.lecSignIn(userName, passowrd);
+            if(lecturer!=null){
+                JOptionPane.showMessageDialog(frame, "Username or password Already Taken by another user..");
             }else{
-                if(checksub1.isSelected()){
+                if(checkSub1.isSelected()){
                 Subject subject1=new Subject(1,String.valueOf(modules.SENG1111_Introduction_to_Programming));
                 subjectList.add(subject1);
             }
@@ -226,15 +238,23 @@ public class StudentSignUp extends javax.swing.JFrame {
                 Subject subject3=new Subject(3,String.valueOf(modules.SENG1113_Data_Structures_and_Algorithms));
                 subjectList.add(subject3);
             }
-            stdController.stdSignUp(id, stdName, stdAge, userName, passowrd, subjectList);
+            lecController.lecSignUp(id, lecName, lecAge, userName, passowrd, subjectList);
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(StudentSignUp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LecturerSignUp.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(StudentSignUp.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LecturerSignUp.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+            
     }//GEN-LAST:event_btnSignUpActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        homePage.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -267,17 +287,17 @@ public class StudentSignUp extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                stdSignUp.setVisible(true);
+                lecSignUp.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSignUp;
+    private javax.swing.JCheckBox checkSub1;
     private javax.swing.JCheckBox checkSub2;
     private javax.swing.JCheckBox checkSub3;
-    private javax.swing.JCheckBox checksub1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -288,7 +308,7 @@ public class StudentSignUp extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtPAssword;
+    private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtRePassword;
     private javax.swing.JTextField txtUserId;
     private javax.swing.JTextField txtUserName;
