@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  */
 public class StudentSignIn extends javax.swing.JFrame {
 
-    private HomePage homePage=new Ho
+    private HomePage homePage=new HomePage();
     private String userName;
     private String password;
     StudentController stdController=new StudentController();
@@ -165,7 +165,9 @@ public class StudentSignIn extends javax.swing.JFrame {
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
-        
+        homePage.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     /**

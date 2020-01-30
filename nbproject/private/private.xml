@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/UniAssingment/oop/UniManagement/src/LecturerSignIn.java</file>
-            <file>file:/D:/UniAssingment/oop/UniManagement/src/HomePage.java</file>
-            <file>file:/D:/UniAssingment/oop/UniManagement/src/Main.java</file>
-            <file>file:/D:/UniAssingment/oop/UniManagement/src/StudentSignIn.java</file>
-            <file>file:/D:/UniAssingment/oop/UniManagement/src/StudentProfile.java</file>
+            <file>file:/D:/UniAssingment/oop/UniManagement/src/GUIProgram/StudentSignIn.java</file>
+            <file>file:/D:/UniAssingment/oop/UniManagement/src/Entity/Student.java</file>
+            <file>file:/D:/UniAssingment/oop/UniManagement/src/GUIProgram/LecturerSignIn.java</file>
+            <file>file:/D:/UniAssingment/oop/UniManagement/src/GUIProgram/SdudentSignUp.java</file>
+            <file>file:/D:/UniAssingment/oop/UniManagement/src/DBConnection/DBConnection.java</file>
+            <file>file:/D:/UniAssingment/oop/UniManagement/src/GUIProgram/HomePage.java</file>
         </group>
     </open-files>
 </project-private>
